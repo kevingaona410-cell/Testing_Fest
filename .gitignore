@@ -1,0 +1,5 @@
+.env
+.venv
+tdd_code.py
+.vscode
+__pycache__
