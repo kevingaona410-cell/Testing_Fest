@@ -1,8 +1,6 @@
 import importlib.util
 import pathlib
 
-import pytest
-
 # Cargar los módulos
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SERVER_PATH = ROOT / "source" / "server.py"
@@ -26,6 +24,7 @@ class TestParseBuffer:
 	"""Pruebas unitarias para `parse_buffer`."""
 
 	def test_parse_buffer_single_complete_message(self):
+		# Verifica mensaje que termina en \n
 		buf = "hello world\n"
 		messages, residue = parse_buffer(buf)
 		
@@ -34,6 +33,7 @@ class TestParseBuffer:
 		assert residue == ""
 
 	def test_parse_buffer_multiple_messages(self):
+		# Verifica varios mensajes en uno solo
 		buf = "one\ntwo\nthree\n"
 		messages, residue = parse_buffer(buf)
 
@@ -42,6 +42,7 @@ class TestParseBuffer:
 		assert residue == ""
 
 	def test_parse_buffer_fragmented_message_keeps_residue(self):
+		# Verifica mensaje incompleto sin \n
 		buf = "incomplete"
 		messages, residue = parse_buffer(buf)
 
@@ -62,6 +63,7 @@ class TestParseBuffer:
 		assert residue == "partial"
 
 	def test_parse_buffer_discards_empty_and_whitespace_lines(self):
+		# Revisa cadena de \n y extrae solo el mensaje
 		buf = "\n\n   \nmsg\n"
 		messages, residue = parse_buffer(buf)
 
