@@ -95,7 +95,6 @@ def test_broadcast_message_reaches_all_clients():
         assert "[Sarah] Hello everyone" in response_three
 
     finally:
-        # CLEANUP: Cerrar todos los sockets abiertos
         if client_one:
             client_one.close()
         if client_two:
